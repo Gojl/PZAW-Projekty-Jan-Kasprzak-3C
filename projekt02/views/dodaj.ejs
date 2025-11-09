@@ -1,0 +1,22 @@
+<%- include("head.partial.ejs") %>
+
+<main>
+<form action="/wiadomosci/dodaj" method="POST">
+  <div>
+    <label for="wiadomosci">Twoja wiadomosc</label>
+    <input
+      type="text"
+      name="wiadomosc"
+      required
+      minlength="1"
+      maxlength="500"
+    />
+  </div>
+  <div>
+    <button>Dodaj</button>
+  </div>
+</form><br>
+<a href="/">Powrót do strony głównej</a>
+</main>
+
+<%- include("foot.partial.ejs") %>

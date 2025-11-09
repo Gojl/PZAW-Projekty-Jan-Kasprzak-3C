@@ -1,0 +1,14 @@
+<%- include("head.partial.ejs") %>
+
+<main>
+    <h1><%=title%></h1>
+  <ul id="wiadomosci">
+    <% wiadomosc.forEach(function(info){ %>
+      <li><%= info %></li>
+    <% }) %>
+  </ul><br>
+  <a href="/dodaj/">Dodaj do strony!</a><br>
+  <a href="/">Powrót do strony głównej</a>
+</main>
+
+<%- include("foot.partial.ejs") %>

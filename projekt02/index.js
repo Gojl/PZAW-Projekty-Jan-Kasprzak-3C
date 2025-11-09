@@ -1,61 +1,46 @@
 import express from "express";
-import flashcards from "./models/flashcards.js";
-import card_categories from "./models/flashcards.js";
 
 const port = 3333;
 const app = express();
+app.use(express.urlencoded({ extended: true }));
+
+
+const wiadomosci = ["Witaj Uzytkowniku!"];
 
 app.set("view engine", "ejs");
 
 app.use(express.static("public"));
 
-app.get("/cards/categories/", (req, res) => {
-  res.render("categories", {
-    title: "Kategorie",
-    categories: Object.entries(card_categories).map(
-      ([id, category]) => category.name
-    ),
+
+app.get("/dodaj/", (req, res) => {
+  res.render("dodaj", {
+    title: "Dodaj wiadomosc",
+    wiadomosc: wiadomosci,
   });
 });
 
-app.get("/cards/:category_id", (req, res) => {
-  if (card_categories.hasOwnProperty(req.params.category_id)) {
-    const category = card_categories[req.params.category_id];
-    res.render("category", {
-      title: category.name,
-      category,
-    });
-  } else {
-    res.sendStatus(404);
-  }
+app.get("/wiadomosci/", (req, res) => {
+  res.render("wiadomosci", {
+    title: "Wielka Sciana Wiadomosci",
+    wiadomosc: wiadomosci,
+  });
 });
 
-app.post("/cards/:category_id/new", (req, res) => {
-  const category_id = req.params.category_id;
-  if (!flashcards.hasCategory(category_id)) {
-    res.sendStatus(404);
-  } else {
-    let card_data = {
-      front: req.body.front,
-      back: req.body.back,
-    };
-    var errors = flashcards.validateCardData(card_data);
-    if (errors.length == 0) {
-      flashcards.addCard(category_id, card_data);
-      res.redirect(`/cards/${category_id}`);
-    } else {
-      res.status(400);
-      res.render("new_card", {
-        errors,
-        title: "Nowa fiszka",
-        front: req.body.front,
-        back: req.body.back,
-        category: {
-          id: category_id,
-        },
-      });
-    }
-  }
+app.get("/statystyki", (req, res) => {
+  const statystyki = {
+    liczbaWiadomosci: wiadomosci.length,
+    liczbaSlow: wiadomosci.reduce((acc, msg) => acc + msg.split(/\s+/).filter(w => w).length, 0),
+    liczbaZnakow: wiadomosci.reduce((acc, msg) => acc + msg.length, 0)
+  }; // chat gpt gotowal fukcje na liczenie slow i liter wiec nie daj gwarancji poprawnego liczenia xD
+
+  res.render("statystyki.ejs", { title: "statystyki", statystyki });
+
+});
+
+
+app.post('/wiadomosci/dodaj', (req, res) => {
+  wiadomosci.push(req.body.wiadomosc);
+  res.redirect('/wiadomosci/');
 });
 
 app.listen(port, () => {

@@ -1,0 +1,14 @@
+<%- include("head.partial.ejs") %>
+
+<main>
+  <h1>Statystyki wiadomości</h1>
+  <ul>
+    <li>Liczba wiadomości: <%= statystyki.liczbaWiadomosci %></li>
+    <li>Liczba słów: <%= statystyki.liczbaSlow %></li>
+    <li>Liczba znaków: <%= statystyki.liczbaZnakow %></li>
+  </ul>
+<br>
+  <a href="/">Powrót do strony głównej</a>
+</main>
+
+<%- include("foot.partial.ejs") %>
