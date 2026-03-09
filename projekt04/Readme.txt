@@ -1,5 +1,5 @@
 TO DO: 
-1. zjednolicenie bazy danych
+1. zjednolicenie bazy danych - wykonane
 2. Dodanie do tej bazy danych użytkowników 
 3. dodanie view dla login/sign up
 4. dodanie handlera dla admina który może widziec wszystkie bazy danych -> jak ni jest zalogowany to wywala na glowną stronę
@@ -18,8 +18,7 @@ Możesz również dodawać, zmieniać i usuwać własne algorytmy i czasy poprze
    npm install
 
 4. Jeżeli github nie importuje baz danych to stwórz bazy komendami:
-    node myplls.js
-    node yourplls.js
+    node plls.js
 
 5. Uruchom serwer:
    node index.js

@@ -1,6 +1,6 @@
 import { DatabaseSync } from "node:sqlite";
 
-const db = new DatabaseSync("./plls/myplls.db");
+const db = new DatabaseSync("plls/plls.db");
 
 db.exec(`
   CREATE TABLE IF NOT EXISTS myplls (
@@ -10,6 +10,16 @@ db.exec(`
     best_time TEXT
   );
 `);
+
+db.exec(`
+  CREATE TABLE IF NOT EXISTS yourplls (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT,
+    algorithm TEXT,
+    best_time TEXT
+  );
+`);
+
 
 const stmt = db.prepare("SELECT COUNT(*) AS count FROM myplls");
 const row = stmt.get();
@@ -43,3 +53,5 @@ if (row.count === 0) {
 } else {
   console.log("Tabela Your PLL już zawiera dane.");
 }
+
+export default db;
