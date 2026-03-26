@@ -12,6 +12,7 @@ db.exec(`
 `);
 
 db.exec(`
+
   CREATE TABLE IF NOT EXISTS yourplls (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT,
@@ -20,6 +21,14 @@ db.exec(`
   );
 `);
 
+db.exec(`
+  CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT UNIQUE,
+    passhash TEXT,
+    created_at INTEGER
+  )STRICT;
+`);
 
 const stmt = db.prepare("SELECT COUNT(*) AS count FROM myplls");
 const row = stmt.get();
