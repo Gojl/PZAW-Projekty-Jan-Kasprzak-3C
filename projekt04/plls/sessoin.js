@@ -6,8 +6,6 @@ const db = new DatabaseSync("plls/plls.db", { readBigInts: true });
 const SESSION_COOKIE = "__Host-fish-id";
 const ONE_WEEK = 7 * 24 * 60 * 60 * 1000;
 
-// TODO(kleindan) no user model yet
-// remember to add Foreign Key relations later
 db.exec(`
   CREATE TABLE IF NOT EXISTS fc_session (
     id              INTEGER PRIMARY KEY,
@@ -26,11 +24,14 @@ const db_ops = {
   ),
 };
 
-function createSession(user, res) {
+function createSession(userId, res) {
   let sessionId = randomBytes(8).readBigInt64BE();
   let createdAt = Date.now();
 
-  let session = db_ops.create_session.get(sessionId, user, createdAt);
+  let session = db_ops.create_session.get(sessionId, userId, createdAt);
+
+  session.user = userId;
+
   res.locals.session = session;
 
   res.cookie(SESSION_COOKIE, session.id.toString(), {
@@ -38,6 +39,7 @@ function createSession(user, res) {
     httpOnly: true,
     secure: true,
   });
+
   return session;
 }
 
@@ -46,18 +48,17 @@ function sessionHandler(req, res, next) {
   let session = null;
   if (sessionId != null) {
     if (!sessionId.match(/^-?[0-9]+$/)) {
-      // Invalid session id
       sessionId = null;
     } else {
       sessionId = BigInt(sessionId);
     }
   }
 
-  // sessionId may look valid but might not exist in db
   if (sessionId != null) session = db_ops.get_session.get(sessionId);
   
   if (session != null) {
     res.locals.session = session;
+    res.locals.session.user = session.user_id; 
     
     res.cookie(SESSION_COOKIE, res.locals.session.id.toString(), {
       maxAge: ONE_WEEK,

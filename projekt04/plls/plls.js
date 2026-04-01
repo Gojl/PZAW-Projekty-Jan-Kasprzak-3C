@@ -12,22 +12,22 @@ db.exec(`
 `);
 
 db.exec(`
-
-  CREATE TABLE IF NOT EXISTS yourplls (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT,
-    algorithm TEXT,
-    best_time TEXT
+CREATE TABLE IF NOT EXISTS yourplls (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT,
+  algorithm TEXT,
+  best_time TEXT,
+  user_id INTEGER
   );
 `);
 
 db.exec(`
   CREATE TABLE IF NOT EXISTS users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT UNIQUE,
-    passhash TEXT,
-    created_at INTEGER
-  )STRICT;
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  username TEXT UNIQUE,
+  passhash TEXT,
+  created_at INTEGER
+  ) STRICT;
 `);
 
 const stmt = db.prepare("SELECT COUNT(*) AS count FROM myplls");

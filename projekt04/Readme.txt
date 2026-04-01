@@ -1,29 +1,62 @@
-TO DO: 
-1. zjednolicenie bazy danych - wykonane
-2. Dodanie do tej bazy danych użytkowników 
-3. dodanie view dla login/sign up
-4. dodanie handlera dla admina który może widziec wszystkie bazy danych -> jak ni jest zalogowany to wywala na glowną stronę
+3x3 PLL Database – Instrukcja konfiguracji i użycia
 
-3x3 PLL Database instrukcja konfiguracji i użycia
-Na tej aplikacji możesz przeglądać moje algorytmy i czasy na ostatnią warstwę kostki Rubika.
-Możesz również dodawać, zmieniać i usuwać własne algorytmy i czasy poprzez formularz i przyciski Edytuj / Usuń.
+Ta aplikacja pozwala przeglądać algorytmy PLL i czasy na ostatnią warstwę kostki Rubika.
 
-1. Sklonuj repozytorium:
+Możesz:
+- Dodawać, edytować i usuwać własne algorytmy i czasy poprzez formularze i przyciski Edytuj / Usuń.
+- Admin (login: admin) może przeglądać i edytować wszystkie algorytmy wszystkich użytkowników.
+
+Instalacja i uruchomienie:
+
+1. Sklonuj repozytorium
    git clone https://github.com/Gojl/PZAW-Projekty-Jan-Kasprzak-3C
 
-2. Przejdź do folderu projektu:
+2. Przejdź do folderu projektu
    cd projekt04
 
-3. Zainstaluj potrzebne pakiety Node.js:
+3. Zainstaluj wymagane pakiety Node.js
    npm install
 
-4. Jeżeli github nie importuje baz danych to stwórz bazy komendami:
-    node plls.js
+4. Utwórz bazę danych
+   node plls.js
 
-5. Uruchom serwer:
+5. Uruchom serwer
    node index.js
 
-6. Otwórz przeglądarkę i przejdź na:
+6. Otwórz przeglądarkę i wejdź na
    http://localhost:6767
 
+Funkcjonalności użytkownika:
 
+- Rejestracja i logowanie z unikatowym loginem i hasłem (hasła są bezpiecznie hashowane przy użyciu argon2).
+- Dodawanie nowych algorytmów PLL do własnej listy.
+- Edycja i usuwanie własnych PLL.
+- Widok Twoje PLL pokazuje tylko algorytmy użytkownika.
+
+Funkcjonalności administratora:
+
+- Login: admin (hasło też admin jeżeli się baza danych też klonuje, jeżeli nie to trzeba stworzyć konto o loginie admin)
+- Dostęp do panelu admina pod /admin.
+- Może przeglądać, edytować i usuwać PLL wszystkich użytkowników.
+- Formularze edycji działają tylko dla admina – zwykli użytkownicy nie mogą edytować ani usuwać cudzych algorytmów.
+
+Bezpieczeństwo:
+
+- Hasła są przechowywane jako hash argon2 z wbudowaną solą.
+- Sesje są obsługiwane za pomocą ciasteczek i zapisów w bazie danych.
+- Nieautoryzowani użytkownicy nie mogą edytować ani usuwać cudzych danych.
+
+Struktura aplikacji:
+
+- index.js – serwer i główne routy.
+- views/ – wszystkie widoki EJS (logowanie, rejestracja, PLL użytkownika i panel admina).
+- plls/ – logika bazy danych i sesji.
+- node_modules/ – zainstalowane pakiety Node.js.
+
+Instrukcja użycia:
+
+- Zarejestruj się jako użytkownik.
+- Zaloguj się jako użytkownik
+- Dodaj własny PLL przez formularz.
+- Edytuj lub usuń własne algorytmy w widoku Twoje PLL.
+- Zaloguj się jako admin (login: admin), aby przeglądać, edytować i usuwać wszystkie algorytmy.
