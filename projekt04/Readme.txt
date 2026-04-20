@@ -60,3 +60,9 @@ Instrukcja użycia:
 - Dodaj własny PLL przez formularz.
 - Edytuj lub usuń własne algorytmy w widoku Twoje PLL.
 - Zaloguj się jako admin (login: admin), aby przeglądać, edytować i usuwać wszystkie algorytmy.
+
+
+to do:
+ARTUR(
+tworzenie konta administratora przy odpaleniu serwera
+dodaj tryb jasny)
