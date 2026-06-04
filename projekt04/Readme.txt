@@ -18,7 +18,7 @@ Instalacja i uruchomienie:
    npm install
 
 4. Utwórz bazę danych
-   node plls.js
+   node plls/plls.js
 
 5. Uruchom serwer
    node index.js

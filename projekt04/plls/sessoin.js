@@ -1,7 +1,6 @@
-import { DatabaseSync } from "node:sqlite";
+import db from "./plls.js";  
 import { randomBytes } from "node:crypto";
 
-const db = new DatabaseSync("plls/plls.db", { readBigInts: true });
 
 const SESSION_COOKIE = "__Host-fish-id";
 const ONE_WEEK = 7 * 24 * 60 * 60 * 1000;

@@ -17,7 +17,22 @@ app.use(cookieParser());
 app.use(session.sessionHandler);
 
 app.get("/", (req, res) => {
-  res.render("index", { session: res.locals.session });
+  let isAdmin = false;
+
+  if (res.locals.session.user) {
+    const user = db.prepare(
+      "SELECT * FROM users WHERE id = ?"
+    ).get(res.locals.session.user);
+
+    if (user && user.username === "admin") {
+      isAdmin = true;
+    }
+  }
+
+  res.render("index", {
+    session: res.locals.session,
+    isAdmin
+  });
 });
 
 app.get("/myplls", (req, res) => {
@@ -49,8 +64,7 @@ app.get("/add-change", (req, res) => {
   }
 
   if (name) {
-    pllData = db.prepare("SELECT * FROM yourplls WHERE name = ? AND user_id = ?")
-                .get(name, userId);
+    pllData = db.prepare("SELECT * FROM yourplls WHERE name = ? AND user_id = ?").get(name, userId);
   }
 
   res.render("add_change", { pll: pllData, error: null });

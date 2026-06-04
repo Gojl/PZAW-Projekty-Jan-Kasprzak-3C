@@ -23,6 +23,11 @@
     <a href="myplls" class="d-block mb-2 link-primary">Moje algorytmy i czasy</a>
     <a href="yourplls" class="d-block mb-2 link-success">Algorytmy i czasy użytkownika</a>
     <a href="add-change" class="d-block link-warning">Dodaj lub zmień algorytm lub czas</a>
+    <% if (isAdmin) { %>
+  <a href="/admin" class="d-block mb-2 link-danger fw-bold">
+    Panel administratora
+  </a>
+<% } %>
 </div>
 </body>
 </html>

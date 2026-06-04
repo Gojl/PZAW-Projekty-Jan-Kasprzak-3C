@@ -1,6 +1,8 @@
 import { DatabaseSync } from "node:sqlite";
 
-const db = new DatabaseSync("plls/plls.db");
+const db = new DatabaseSync("plls/plls.db", { readBigInts: true });
+
+import argon2 from "argon2";
 
 db.exec(`
   CREATE TABLE IF NOT EXISTS myplls (
@@ -29,6 +31,22 @@ db.exec(`
   created_at INTEGER
   ) STRICT;
 `);
+
+const admin = db.prepare(
+  "SELECT * FROM users WHERE username = ?"
+).get("admin");
+
+if (!admin) {
+  db.prepare(
+    "INSERT INTO users (username, passhash, created_at) VALUES (?, ?, ?)"
+  ).run(
+    "admin",
+    "$argon2id$v=19$m=65536,t=3,p=4$LR7jfB9s1i1w2R6iZzklpg$GSsHXTZ9uAzjZbNevRsQvXHYt5bgQeiT55VMvH6m0gk",
+    Date.now()
+  );
+
+  console.log("Utworzono konto admin");
+}
 
 const stmt = db.prepare("SELECT COUNT(*) AS count FROM myplls");
 const row = stmt.get();
