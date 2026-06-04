@@ -60,3 +60,11 @@ Instrukcja użycia:
 - Dodaj własny PLL przez formularz.
 - Edytuj lub usuń własne algorytmy w widoku Twoje PLL.
 - Zaloguj się jako admin (login: admin), aby przeglądać, edytować i usuwać wszystkie algorytmy.
+
+Natalia B review:
+- w readme jest błąd, żeby utworzyć baze z plls trzeba wpisać node plls/plls.js, a nie node plls.js. Poza tym readme oki 
+- zamiast osobno tworzyć bazę danych jako osobny node tworzyłabym ją jeśli nie istnieje przy odpalaniu strony
+- z podstrony twoje pll nie można się cofnąć do głównej strony więć np jeśli chcesz się tam cofnąć po zrobieniu algorytmu to musisz przejść przez formularz tworzenia
+- aplikacja wygląda ładnie graficznie 
+- panel admina dałabym od razu na koncie admina zamiast pod \admin
+- kod ładnie napisany widać że aplikacja została przemyślana
