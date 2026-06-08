@@ -12,18 +12,15 @@ Instalacja i uruchomienie:
    git clone https://github.com/Gojl/PZAW-Projekty-Jan-Kasprzak-3C
 
 2. Przejdź do folderu projektu
-   cd projekt04
+   cd PZAW-Projekty-Jan-Kasprzak-3C/projekt04
 
 3. Zainstaluj wymagane pakiety Node.js
    npm install
 
-4. Utwórz bazę danych
-   node plls/plls.js
-
-5. Uruchom serwer
+4. Uruchom serwer
    node index.js
 
-6. Otwórz przeglądarkę i wejdź na
+5. Otwórz przeglądarkę i wejdź na
    http://localhost:6767
 
 Funkcjonalności użytkownika:
@@ -61,6 +58,9 @@ Instrukcja użycia:
 - Edytuj lub usuń własne algorytmy w widoku Twoje PLL.
 - Zaloguj się jako admin (login: admin), aby przeglądać, edytować i usuwać wszystkie algorytmy.
 
+
+
+
 Natalia B review:
 - w readme jest błąd, żeby utworzyć baze z plls trzeba wpisać node plls/plls.js, a nie node plls.js. Poza tym readme oki 
 - zamiast osobno tworzyć bazę danych jako osobny node tworzyłabym ją jeśli nie istnieje przy odpalaniu strony
@@ -68,3 +68,57 @@ Natalia B review:
 - aplikacja wygląda ładnie graficznie 
 - panel admina dałabym od razu na koncie admina zamiast pod \admin
 - kod ładnie napisany widać że aplikacja została przemyślana
+
+
+
+
+Artur review:
+- (Drobne) lepiej gdyby projekty były w osobnych repozytoriach
+
++ Struktura repozytorium czytelna  
+- Baza danych nie tworzy się automatycznie  
+
++ README czytelne  
+- błędna ścieżka do plls.js w readme (powinno być plls/plls.js zamiast po prostu plls.js)
+
+--------------------------------------------------
+!!! WAŻNE !!!
+Największy błąd jaki znalazłem, kompletnie psuł projekt
+Error: unable to open database file  
+
+- błąd session ID (overflow number w JS)  
+
+- błędy systemu sesji (finalized statements)  
+
+poprawka: randomBytes(4).readUInt32BE()
+Zmiany kilku typów danych w kolumnach w bazie danych
+--------------------------------------------------
++ test SQL injection (test";--) brak efektu  
+
++ UI czytelny  
+- trochę ciasne linki w UI  
+
+- “Moje algorytmy” myląca nazwa  
+
++ CRUD działa poprawnie  
+- edycja czasem tworzy nowy wpis (Przy zmianie PLL)
+
+- admin nie tworzy się automatycznie  
+- admin UI mało czytelne  
+- admin nie może edytować PLL  
+
+- brak trybu ciemnego  
+
++ błędy logowania na stronie login  
+
+NPM audit: umiarkowane podatności, łatwe do naprawy  
+
+Testy bezpieczeństwa:
+- brute force obciąża CPU (~80%)  
+- kradzież cookie pozwala na przejęcie sesji  
++ sesja zmienia się po ponownym logowaniu  
++ SQL injection nie działa  
+- brak rate limiting  
+- brak czyszczenia sesji po logout  
+
+Podsumowanie: działa, ale sesje i limity wymagają poprawy.

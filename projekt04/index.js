@@ -5,6 +5,7 @@ import db from "./plls/plls.js";
 import session from "./plls/sessoin.js";
 import cookieParser from "cookie-parser";
 import argon2 from "argon2";
+import rateLimit from "express-rate-limit";
 
 const port = 6767;
 
@@ -15,6 +16,14 @@ app.use(express.urlencoded());
 
 app.use(cookieParser());
 app.use(session.sessionHandler);
+
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 10,
+  message: "Za dużo prób logowania. Spróbuj ponownie później."
+});
+
+app.use("/login", loginLimiter);
 
 app.get("/", (req, res) => {
   let isAdmin = false;
@@ -127,9 +136,10 @@ app.post("/register", async (req, res) => {
 
 app.post("/logout", (req, res) => {
   const sessionId = req.cookies["__Host-fish-id"];
+
   if (sessionId) {
-    const stmt = db.prepare("DELETE FROM fc_session WHERE id = ?");
-    stmt.run(BigInt(sessionId));
+    db.prepare("DELETE FROM fc_session WHERE id = ?")
+      .run(parseInt(sessionId));
   }
 
   res.clearCookie("__Host-fish-id");
@@ -216,11 +226,11 @@ app.post("/admin/edit-pll", (req, res) => {
 
   if (!user || user.username !== "admin") return res.status(403).send("Brak dostępu");
 
-  const { name, user_id, algorithm, best_time } = req.body;
+  const { old_name, new_name, user_id, algorithm, best_time } = req.body;
 
   db.prepare(
-    "UPDATE yourplls SET algorithm = ?, best_time = ? WHERE name = ? AND user_id = ?"
-  ).run(algorithm, best_time, name, user_id);
+    "UPDATE yourplls SET name = ?, algorithm = ?, best_time = ? WHERE name = ? AND user_id = ?"
+  ).run(new_name, algorithm, best_time, old_name, user_id);
 
   res.redirect("/admin");
 });

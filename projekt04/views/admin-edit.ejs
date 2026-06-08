@@ -10,8 +10,13 @@
   <a href="/admin" class="btn btn-outline-light position-absolute top-1 end-1">Strona Admina</a>
   <h2 class="mb-4 text-center">Edytuj PLL - <%= pll.name %></h2>
 <form action="/admin/edit-pll" method="POST">
-  <input type="hidden" name="name" value="<%= pll.name %>">
   <input type="hidden" name="user_id" value="<%= pll.user_id %>">
+  <input type="hidden" name="old_name" value="<%= pll.name %>">
+
+  <div class="mb-3"> 
+    <label for="PLL" class="form-label">PLL</label> 
+    <input type="text" class="form-control" id="pll" name="new_name" value="<%= pll.name %>" required>
+  </div>
 
   <div class="mb-3">
     <label for="algorithm" class="form-label">Algorytm</label>

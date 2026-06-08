@@ -1,6 +1,6 @@
 import { DatabaseSync } from "node:sqlite";
 
-const db = new DatabaseSync("plls/plls.db", { readBigInts: true });
+const db = new DatabaseSync("plls/plls.db");
 
 import argon2 from "argon2";
 
@@ -9,7 +9,7 @@ db.exec(`
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT,
     algorithm TEXT,
-    best_time TEXT
+    best_time REAL
   );
 `);
 
@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS yourplls (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   name TEXT,
   algorithm TEXT,
-  best_time TEXT,
+  best_time REAL,
   user_id INTEGER
   );
 `);
