@@ -1,6 +1,6 @@
 3x3 PLL Database – Instrukcja konfiguracji i użycia
 
-Ta aplikacja pozwala przeglądać algorytmy PLL i czasy na ostatnią warstwę kostki Rubika.
+Ta aplikacja pozwala przeglądać algorytmy PLL (czyli algorytmy na ostatnią warstwę kostki Rubika, więcej na https://www.speedsolving.com/wiki/index.php/PLL) i twoje czasy.
 
 Możesz:
 - Dodawać, edytować i usuwać własne algorytmy i czasy poprzez formularze i przyciski Edytuj / Usuń.
